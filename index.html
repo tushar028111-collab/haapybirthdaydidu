@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Didi 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Dancing Script',cursive;
+  background:linear-gradient(135deg,#ffd6e8,#e6d9ff);
+  color:#5a2a5a;
+  text-align:center;
+  overflow-x:hidden;
+}
+section{padding:60px 20px}
+h1{font-size:48px}
+h2{font-size:32px}
+p{font-size:22px;line-height:1.6}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+.gallery img{
+  width:260px;
+  height:340px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  animation:fadeUp 1.5s ease;
+  transition:.3s;
+}
+.gallery img:hover{transform:scale(1.05)}
+
+.cake{
+  width:220px;
+  cursor:pointer;
+  transition:.3s;
+}
+.cake:hover{transform:scale(1.05)}
+
+footer{
+  padding:30px;
+  font-size:22px;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Floating Hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  opacity:.7;
+}
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-110vh)}
+}
+
+/* Mobile */
+@media(max-width:600px){
+  h1{font-size:36px}
+  h2{font-size:26px}
+  p{font-size:18px}
+  .gallery img{width:90%;height:auto}
+}
+
+/* Fireworks */
+#fireworks{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<script>
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(4+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},500);
+</script>
+
+<!-- HERO -->
+<section class="hero">
+<h1>Happy Birthday Didi 🎂🎉</h1>
+<h2>Today is all about YOU ❤️</h2>
+</section>
+
+<!-- MESSAGE -->
+<section>
+<h2>Dear Didi 💖</h2>
+<p>
+Aaj sirf tumhara birthday nahi,<br>
+aaj uss insaan ka celebration hai<br>
+jo sabko khush rakhna jaanta hai ❤️<br><br>
+You are my strength,<br>
+my support,<br>
+my forever favourite 💕
+</p>
+</section>
+
+<!-- GALLERY -->
+<section>
+<h2>Your Beautiful Moments 🌸</h2>
+<div class="gallery">
+<img src="images/img1.jpg">
+<img src="images/img2.jpg">
+<img src="images/img3.jpg">
+<img src="images/img4.jpg">
+<img src="images/img5.jpg">
+<img src="images/img6.jpg">
+<img src="images/img7.jpg">
+<img src="images/img8.jpg">
+</div>
+</section>
+
+<!-- CAKE -->
+<section>
+<h2>Tap the Cake 🎂</h2>
+<img class="cake" src="https://i.imgur.com/9XnQZQp.png" onclick="cutCake()">
+<p id="cakeText"></p>
+</section>
+
+<section>
+<h2>Life is sweeter because of you 🍫💖</h2>
+</section>
+
+<section>
+<h2>Forever proud of you,<br>Forever your Laduuu 💙</h2>
+</section>
+
+<footer>
+Made with Love by Your Laduuu 💙
+</footer>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c7f9f9a32.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FIREWORKS -->
+<canvas id="fireworks"></canvas>
+
+<script>
+/* Cake */
+function cutCake(){
+ document.getElementById("cakeText").innerText=
+ "Wish made ✨ May all your dreams come true ❤️";
+}
+
+/* Music */
+document.body.addEventListener("click",()=>{
+ document.getElementById("music").play();
+},{once:true});
+
+/* Fireworks */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;canvas.height=innerHeight;
+let fw=[];
+function Firework(){
+ this.x=Math.random()*canvas.width;
+ this.y=canvas.height;
+ this.r=Math.random()*3+2;
+ this.s=Math.random()*3+2;
+}
+Firework.prototype.u=function(){this.y-=this.s}
+Firework.prototype.d=function(){
+ ctx.beginPath();
+ ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+ ctx.fillStyle="rgba(255,105,180,.8)";
+ ctx.fill();
+}
+setInterval(()=>fw.push(new Firework()),300);
+(function a(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ fw.forEach((f,i)=>{f.u();f.d();if(f.y<0)fw.splice(i,1)});
+ requestAnimationFrame(a);
+})();
+onresize=()=>{canvas.width=innerWidth;canvas.height=innerHeight}
+</script>
+
+</body>
+</html>
